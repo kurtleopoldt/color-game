@@ -52,7 +52,7 @@ h1 {
 	background: steelblue;
 }
 
-button {
+button, select {
 	border: none;
 	background: none;
 	text-transform: uppercase;
@@ -67,7 +67,7 @@ button {
 	outline: none;
 }
 
-button:hover {
+button:hover, select:hover {
 	color: whitesmoke;
 	background: steelblue;
 }
