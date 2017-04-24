@@ -8,6 +8,7 @@ var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
 var modeButtons = document.querySelectorAll(".mode");
 var colorSelection = "RGB";
+var colorDefChange = document.getElementById('colorDef');
 
 init();
 
@@ -16,8 +17,6 @@ function init(){
 	setupModeButtons();
 	setupSqures();
 	colorDefSelect();
-	
-
 	reset();
 }
 
@@ -101,7 +100,8 @@ function generateRandomColors(num){
 	// repeat num times	
 	for (var i = 0; i < num; i++){
 		// get random color and push into array
-		arr.push(randomColor());
+		// will need to insert "if" statement for different color definitions
+		arr.push(randomRGB());
 	}
 	// return that array
 	return arr;
@@ -109,23 +109,34 @@ function generateRandomColors(num){
 
 //watch the colorDef selector
 function colorDefSelect() {
-	var colorDefChange = document.getElementById('colorDef');
+	// var colorDefChange = document.getElementById('colorDef');
 	colorDefChange.addEventListener('change', function() {
+  	reset();
   	return colorSelection = this.value;
-	}, false);
+
+
+  	
+	});
+	
 }
 
 // add to this function for other varieties
-function randomColor(){
-	if(colorSelection === "RGB") {
-		// pick a "red" from 0-255
-		var r = Math.floor(Math.random() * 256)
-		// pick a "green" from 0-255
-		var g = Math.floor(Math.random() * 256)
-		// pick a "blue" form 0-255
-		var b = Math.floor(Math.random() * 256)
-		return "rgb(" + r + ", " + g + ", " + b + ")";
-	} else {
-		console.log("cheese");
+function randomRGB(){
+	// pick a "red" from 0-255
+	var r = Math.floor(Math.random() * 256)
+	// pick a "green" from 0-255
+	var g = Math.floor(Math.random() * 256)
+	// pick a "blue" form 0-255
+	var b = Math.floor(Math.random() * 256)
+	return "rgb(" + r + ", " + g + ", " + b + ")";
+}
+
+function randomHexadecimal(){
+	hexArr = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+	hexColor = "";
+	// loop through array and pick random variable 6 times
+	for(i=0; i<6; i++){
+		hexColor += (hexArr[Math.floor(Math.random()*16)]);
 	}
+	return ("#" + hexColor);
 }
