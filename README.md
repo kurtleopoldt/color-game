@@ -5,6 +5,7 @@ The initial files were created during Colt Steele's ["The Web Developer Bootcamp
 
 Planned improvements include:
 
-- add hexidecimal and hsla colors
+- ~~add hexadecimal~~ 
+- add hsla and rgba colors
 - refactor using modules
 - extend to include complementary / secondary colors after initial game complete?
