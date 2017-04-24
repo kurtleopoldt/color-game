@@ -38,7 +38,11 @@ function setupSqures(){
 		// add click listenters to squares
 		squares[i].addEventListener("click", function(){
 			// grab color of clicked square
-			var clickedColor = this.style.background;
+			if(colorSelection === "RGB"){
+				var clickedColor = (this.style.background);
+			} else {
+				var clickedColor = rgb2hex(this.style.background);
+			}
 			// compare color to pickedColor
 			if(clickedColor === pickedColor){
 				messageDisplay.textContent = "Correct!";
@@ -52,7 +56,6 @@ function setupSqures(){
 		});
 	}
 }
-
 
 function reset(){
 	colors = generateRandomColors(numSquares);
@@ -84,7 +87,6 @@ function changeColors(color){
 		// change each color to match given color
 		squares[i].style.background = color;
 	};
-	
 }
 
 function pickColor(){
@@ -101,7 +103,11 @@ function generateRandomColors(num){
 	for (var i = 0; i < num; i++){
 		// get random color and push into array
 		// will need to insert "if" statement for different color definitions
-		arr.push(randomRGB());
+		if(colorSelection === "RGB"){
+			arr.push(randomRGB());
+		} else {
+			arr.push(randomHexadecimal());
+		}
 	}
 	// return that array
 	return arr;
@@ -111,11 +117,8 @@ function generateRandomColors(num){
 function colorDefSelect() {
 	// var colorDefChange = document.getElementById('colorDef');
 	colorDefChange.addEventListener('change', function() {
-  	reset();
-  	return colorSelection = this.value;
-
-
-  	
+  	colorSelection = this.value;
+  	reset();  	
 	});
 	
 }
@@ -139,4 +142,14 @@ function randomHexadecimal(){
 		hexColor += (hexArr[Math.floor(Math.random()*16)]);
 	}
 	return ("#" + hexColor);
+}
+
+//function to convert hex format to a rgb color
+//from http://stackoverflow.com/questions/13937522/how-can-i-get-the-background-colour-from-a-style-attribute-as-a-hex-value-using
+function rgb2hex(rgb){
+ rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+ return (rgb && rgb.length === 4) ? "#" +
+  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
 }
